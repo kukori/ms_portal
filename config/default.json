@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://attilav:doifjo8eudu98u9ewu9@contactkeeper-ftzum.mongodb.net/ms_portal?retryWrites=true&w=majority",
+    "jwtSecret": "dkhfiwifodijdssodhvujojfeowijvhrifrhyyif"
+}
