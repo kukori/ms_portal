@@ -52,8 +52,59 @@ router.post('/', [auth, [
 
         await admin.save();
 
-        res.json({admin: admin});
+        res.json(admin);
 
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   PUT api/admins/:id
+// @desc    Edit admin
+// @access  Private
+router.put('/:id', auth, async (req, res) => {
+    const {firstName, lastName, email} = req.body;
+
+    const adminFields = {};
+    if(firstName) adminFields.firstName = firstName;
+    if(lastName) adminFields.lastName = lastName;
+    if(email) adminFields.email = email;
+
+    try {
+        let admin = await Admin.findById(req.params.id);
+        if(!admin) return res.status(404).json({ msg: "Admin not found"}); 
+
+        // if(admin.user.toString() !== req.user.id) {
+        //     return res.status(401).json({ msg: "Not authorized"});
+        // }
+
+        admin = await Admin.findByIdAndUpdate(req.params.id,
+            { $set: adminFields},
+            { new: true });
+
+        res.json(admin);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   DELETE api/admins/:id
+// @desc    Delete admin
+// @access  Private
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        let admin = await Admin.findById(req.params.id);
+        if(!admin) return res.status(404).json({ msg: "Admin not found"}); 
+
+        // if(admin.id === req.admin.id) {
+        //     return res.status(401).json({ msg: "Not authorized"});
+        // }
+
+        await Admin.findByIdAndRemove(req.params.id);
+
+        res.json({ msg: "Admin removed" });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server error');
