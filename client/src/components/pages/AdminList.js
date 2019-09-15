@@ -29,7 +29,7 @@ return (
             {!loading && admins !== null && admins.map(admin => <AdminItem key={admin._id} admin={admin}  />)}
           </tbody>
         </table>
-        <a href="#add-admin-modal" className="modal-trigger">
+        <a href="#add-admin-modal" className="modal-trigger left" style={{'margin-top': '15px'}}>
           <i className="material-icons">person_add</i>
         </a>
       </div>

@@ -15,7 +15,7 @@ const AdminItem = ({admin, deleteAdmin}) => {
             <td>{admin.firstName}</td>
             <td>{admin.lastName}</td>
             <td>{admin.email}</td>
-            <td>{admin.isActive}</td>
+            <td>{admin.isActive ? <i className="material-icons grey-text">done</i> : <i className="material-icons grey-text">clear</i>}</td>
             <td>
                 <a href='#!' onClick={onDelete} className="secondary-content">
                     <i className="material-icons grey-text">delete</i>
